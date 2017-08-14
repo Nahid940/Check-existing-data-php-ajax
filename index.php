@@ -52,9 +52,10 @@
                    }
                    else
                    {
-                    $("#UserName").effect("shake");
+                    
                     $("#UserName").css("border-color","red");
                     $("#name_status").css("color","red");
+                    $("#UserName").effect("shake");
                     return false;	
                    }
               }
