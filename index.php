@@ -5,36 +5,60 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
+
+
 <body>
-    <h3>Existing data check..</h3>
+   <center> <h3>Existing data check..</h3></center>
+   
+<div class="container">
+  <hr/>
+  <div class="warning">
+    <center>
+      <span id="result" class="label label-danger"></span>
+    </center>	
+  </div>
+
+  <form class="form-horizontal" action="" id="inserName" onsubmit="return checkall();">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="name">Name:</label>
+      
+      <div class="col-sm-6">
+        <input type="text" name="username" id="UserName" onkeyup="checkname();" class="form-control"/>
+      </div>
+      <span id="name_status" class="col-sm-2"></span>
+    </div>
+   
+
+    <div class="form-group" align="right">        
+      <div class="col-sm-offset-2 col-sm-6">
+        <button  id="button" class="btn btn-success">Insert</button>
+      </div>
+    </div>
+  </form>
+  
+</div>
     
-    <form method="POST" onsubmit="return checkall();" class="form-inline form-horizontal">
-          <div class="form-group">
-            <label for="name" class="col-sm-2">Name:</label>
-            <div class="col-md-6">
-                 <input type="text" name="username" id="UserName" onkeyup="checkname();" class="form-control"><span id="name_status"></span>
-             
-            </div>
-          </div>
-         
-         <div class="form-group" align="right">
-             <div class="col-md-6">
-                 <button name="button" id="button" class="btn btn-success">Submit</button>
-            </div>
-        </div>
-       
-    </form>
     
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
+
+    
+//    function CheckInput(){
+//        var UserName=document.getElementById( "UserName" ).value;
+//        if(UserName==''){
+//            $('#result').html("Enter Name");
+//        }
+//    }
+ 
+    
+    
     function checkname()
     {
- var name=document.getElementById( "UserName" ).value;
+        var name=document.getElementById( "UserName" ).value;
 	
-     if(name)
+     if(name !='')
      {
           $.ajax({
               type: 'post',
@@ -45,19 +69,19 @@
               success: function (response) {
                    $( '#name_status' ).html(response);
                    if(response=="Available")	
-                   {
-                    $("#UserName").css("border-color","green");
-                    $("#name_status").css("color","green");
-                    return true;	
-                   }
+                       {
+                            $("#UserName").css("border-color","green");
+                            $("#name_status").css("color","green");
+                            return true;	
+                       }
                    else
-                   {
-                    
-                    $("#UserName").css("border-color","red");
-                    $("#name_status").css("color","red");
-                    $("#UserName").effect("shake");
-                    return false;	
-                   }
+                       {
+
+                            $("#UserName").css("border-color","red");
+                            $("#name_status").css("color","red");
+                            $("#UserName").effect("shake");
+                            return false;	
+                       }
               }
           });
      }
@@ -83,6 +107,17 @@
       return false;
      }
 }
+    
+    
+       $(document).ready(function(){
+        $("#button").click(function(){
+            var name = $('#UserName').val();
+            if(name==''){
+                $("#result").html("Insert Name!");
+            }
+        });
+    });
+ 
 </script>
 
 </body>
